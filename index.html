@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Teste Soma</title>
+    </head>
+    <body>
+        <h1>Teste de soma do Spring Boot no Render</h1>
+        <form id="formsoma">
+            <label>Número 1</label>
+            <input type="text" id="num1"><br>
+            <label>Número 2</label>
+            <input type="text" id="num2"><br>
+            <input type="submit">
+            <input type="reset">
+        </form>
+        <h2 id="resultado">Resultado</h2>
+
+        <script>
+            document.getElementById("formsoma").addEventListener("submit", function(event) {
+                event.preventDefault();
+                let dados = {
+                    num1: document.getElementById("num1").value,
+                    num2: document.getElementById("num2").value
+                };
+                fetch("https://meu-primeiro-spring.onrender.com/api/calcula", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(dados)
+                })
+                .then(resposta => resposta.json())
+                .then(resultado => {
+                    document.getElementById("resultado").innerHTML = "Resultado = " + resultado.resultado;
+                });
+            });
+        </script>
+    </body>
+</html>
